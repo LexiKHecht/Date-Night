@@ -50,10 +50,14 @@
         <section
             class="relative flex w-[50%] flex-wrap items-center justify-between bg-[#FBFBFB] pb-1 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 lg:py-4">
             <div class="ml-5 flex w-[30%] items-center justify-between">
-                <input type="search"
+                <input id = 'city' type="search"
                     class="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none motion-reduce:transition-none dark:border-neutral-500 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
                     placeholder="Search Your City" aria-label="Search" aria-describedby="button-addon2" />
-
+                    
+                    <!-- adds a button using Tailwind style -->
+                    <button id = 'svBtn' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Click
+                    </button>
                 <span
                     class="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-pink-700 dark:text-neutral-200"
                     id="basic-addon2">
