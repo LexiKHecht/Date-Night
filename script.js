@@ -37,7 +37,7 @@ saveBtn.on('click', function () {
   
 	  // force the name into our city through concatting the string
 	  api_url = 'http://api.openweathermap.org/geo/1.0/direct?q=' +
-		cityName + ',US&limit=5&appid=a8fca69c0decd07fd47a9618050e95c3';
+	  cityName + ',US&limit=5&appid=a8fca69c0decd07fd47a9618050e95c3';
   
 	  fetch(api_url)
 		.then(function (response) {
