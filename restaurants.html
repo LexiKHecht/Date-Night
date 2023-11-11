@@ -45,7 +45,10 @@
     <main>
         <div class="flex w-full flex-wrap items-center justify-between px-3">
             <div class="container m-auto grid p-5 m-5">
-                <div id="restaurant-results" class="border-double border-2 border-pink-800">
+                <!-- Added a target class  -->
+                <!-- Want to append childern to the the parent target -->
+                <!-- Children to target will have user info from API call -->
+                <div id="restaurant-results" class="target border-double border-2 border-pink-800">
                     <p>This is where the results will be</p>
                 </div>
             </div>
@@ -53,6 +56,9 @@
     </main>
 </body>
 
+<!-- jQuery script links-->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="script.js"></script>
 
 </html>
