@@ -44,7 +44,7 @@ function alertUser(){
 	// Resets timer back to 10 for the next time an invlaid zip code is entered
 	quickTimerCtr = 15;
 }
-  
+
 // This click will begin the API call 
 saveBtn.on('click', function () {
 	zipCode = city.val();
@@ -57,23 +57,22 @@ saveBtn.on('click', function () {
 		// force the name into our city through concatting the string
 
 		api_url = 'http://api.openweathermap.org/geo/1.0/zip?zip=' +
-			zipCode + ',US&appid=a8fca69c0decd07fd47a9618050e95c3';
-
-		console.log(zipCode);
+			zipCode + ',US&appid=fb1f3dcb852ef70f92f8472645b9bbfd';
 
 		fetch(api_url)
-			.then(function (response) {
-				return response.json();
+			.then(function (geocode_response) {
+				return geocode_response.json();
 			})
 
-			.then(function (data) {
+			.then(function (geocode_data) {
 
 				console.log('API request was a success \n----------');
-				console.log(data);
+				console.log(geocode_data);
+
+				console.log(geocode_data.name);
 
 				// we are now on the restaurants.html page so therefore we can now display 
 				// more data
-				// window.location.href= 'http://127.0.0.1:5500/restaurants.html'
 
 				// $('.target').append('<p>This is where the results will be</p>')
 
@@ -85,25 +84,26 @@ saveBtn.on('click', function () {
 
 				// set to comments so that the api isnt being constanly called on every reload
 
-				// $.ajax(settings).done(function (response) {
-				// 	// console.log(response);
-				// });
-
-
-
 				// https://rapidapi.com/makingdatameaningful/api/restaurants-near-me-usa
-				// const settings = {
-				// async: true,
-				// crossDomain: true,
-				// url: 'https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipcode/90210/0',
-				// method: 'GET',
-				// headers: {
-				// 		'X-RapidAPI-Key': '7efaff1c97msh4469252a2b3babep1db259jsna8b5a9d547c0',
-				// 		'X-RapidAPI-Host': 'restaurants-near-me-usa.p.rapidapi.com'
-				// 	}
-				// };
 
+				const restaurantsForUser = {
+				async: true,
+				crossDomain: true,
+				url: 'https://restaurants-near-me-usa.p.rapidapi.com/restaurants/location/zipcode/'+ zipCode +'/0',
+				method: 'GET',
+				headers: {
+						'X-RapidAPI-Key': '7efaff1c97msh4469252a2b3babep1db259jsna8b5a9d547c0',
+						'X-RapidAPI-Host': 'restaurants-near-me-usa.p.rapidapi.com'
+					}
+				};
+
+				// We now have list of 10 restraunts with their names, address, zip codes, ect 
+				$.ajax(restaurantsForUser).done(function (restaurantsResponse) {
+					console.log(restaurantsResponse);
+
+				});
 			});
+
 	}
 	// Zip Code is not valid and therefore we must alert the user 
 	else
