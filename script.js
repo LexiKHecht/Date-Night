@@ -30,13 +30,13 @@ function alertUser(){
 
 		//  Show element indicating that user's Zip Code is invalid  
 		zipResult.removeClass("invisible");
+		console.log(quickTimerCtr);
 
 		if (quickTimerCtr <= 0) {
 
 		//  if quickTimer is less than or equal to 0 then hide the element 
 		  zipResult.addClass("invisible");
 		  clearInterval(quickTimer);
-		  console.log(quickTimerCtr);
 		}
 		// set in Nanoseconds
 	  }, 100);
@@ -47,7 +47,7 @@ function alertUser(){
 
 // This click will begin the API call 
 saveBtn.on('click', function () {
-	zipCode = city.val();
+	let zipCode = city.val();
 	// if zipCode is truthy then do work 
 
 	if (zipCode && isValidZip(zipCode)) 
@@ -81,7 +81,6 @@ saveBtn.on('click', function () {
 				// this object is called settings 
 				// if the response to the call is valid then settings attributes are 
 				// displayed to the console
-
 				// set to comments so that the api isnt being constanly called on every reload
 
 				// https://rapidapi.com/makingdatameaningful/api/restaurants-near-me-usa
@@ -99,7 +98,24 @@ saveBtn.on('click', function () {
 
 				// We now have list of 10 restraunts with their names, address, zip codes, ect 
 				$.ajax(restaurantsForUser).done(function (restaurantsResponse) {
-					console.log(restaurantsResponse);
+
+					// Finds the id restaurant-results and appends this new class <h1 class= "mb-4 ...
+					$('#restaurant-results').append('<h1 class= "mb-4 mt-0 text-base font-light leading-relaxed">Restaurants in your area:</h1>')
+					for(let i =0; i < 5; i++)
+					{
+						// Finds the id restaurant-results and now appends this new class <p class= "name mb-4 mt-0 ...
+						$('#restaurant-results').append('<p class=  mb-4 mt-0 text-base font-light leading-relaxed"> Restaurant ' +
+						(i +1) + '.)	' + restaurantsResponse.restaurants[i].restaurantName + '</p>');
+						console.log(restaurantsResponse.restaurants[i].website);
+
+						// Finds the id restaurant-results and now appends this new class <p class= "name mb-4 mt-0 ...
+						// this time we are listing the restaurants websites
+						$('#restaurant-results').append('<p class= "mb-4 mt-0 text-base font-light leading-relaxed"> Their website '
+						+ restaurantsResponse.restaurants[i].website + '</p>');
+
+
+					}
+
 
 				});
 			});

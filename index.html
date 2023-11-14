@@ -206,22 +206,25 @@
         <br /> -->
     <section class="relative flex w-[100%] flex-wrap items-center justify-between bg-transparent py-1 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 lg:py-4">
         <div class="ml-5 flex w-[40%] items-center justify-between">
-            <input type="search"
+            <input id= "city" type="search"
                 class="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none motion-reduce:transition-none"
                 placeholder="Search Your City" aria-label="Search" aria-describedby="button-addon2" />
-
-            <button id="search-button" class="px-3 py-1.5 text-center text-base font-normal text-pink-700 dark:text-neutral-200">Search</button>
+            
+            <button id="svBtn" class="px-3 py-1.5 text-center text-base font-normal text-pink-700 dark:text-neutral-200">
+              Button
+            </button>
         </div>
 
     </section>
-    <section>
-        <p class="results mb-4 mt-0 text-base font-light leading-relaxed">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, libero
-        iste quod quibusdam maxime recusandae odit eveniet, aspernatur culpa
-        provident error molestiae vitae corporis in vero est! Beatae, ipsum
-        voluptatibus.
-        </p>
-    </section> 
+
+    <div id="valid-zip" class="invisible results mb-4 mt-0 text-base font-light leading-relaxed">
+      <h2>
+        Sorry, that is not a valid Zip Code. Please Try agian
+      </h2>
+    </div>
+
+    <!-- this is where we are storing our restaurantsForUser api call -->
+<section id="restaurant-results"></section>
 
     <!-- cards -->
     <section class="text-center bg-yellow-100">
