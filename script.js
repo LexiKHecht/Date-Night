@@ -143,3 +143,6 @@ function enableButton(buttonId){
 	button.disabled = "false";
 	button.style.cursor = "pointer";
 }
+
+// Back to top button
+const toTop = () => window.scrollTo({top:0, behavior: 'smooth'})
