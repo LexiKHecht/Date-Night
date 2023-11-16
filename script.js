@@ -128,3 +128,11 @@ saveBtn.on('click', function () {
 	}
 });
 
+//This function take the ID of a button as a parameter and disables the button as well as making the cursor "not allowed"
+function disableButton(buttonId){
+	var button = document.getElementById(buttonId);
+	button.disabled = "true";
+	button.style.cursor = "not-allowed";
+}
+
+
