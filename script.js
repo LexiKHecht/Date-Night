@@ -148,6 +148,7 @@ function updatePage() {
 		alertUser();
 	}
 
+<<<<<<< HEAD
 }
 
 function saveToLocal(event) {
@@ -202,3 +203,20 @@ saveBtn.on('click', updatePage)
 //   </button>
 
 // </div>
+=======
+//This function takes the ID of a button as a parameter and 
+//disables the button as well as making the cursor "not allowed"
+function disableButton(buttonId){
+	var button = document.getElementById(buttonId);
+	button.disabled = "true";
+	button.style.cursor = "not-allowed";
+}
+
+//This function takes the ID of a button as a parameter and 
+//enables a previous disabled button as well as making the cursor a "pointer" again
+function enableButton(buttonId){
+	var button = document.getElementById(buttonId);
+	button.disabled = "false";
+	button.style.cursor = "pointer";
+}
+>>>>>>> aa0280225c68f168de8a8aa19bc9e8d484de61af
