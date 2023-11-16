@@ -61,6 +61,9 @@ saveBtn.on('click', function () {
 
 		fetch(api_url)
 			.then(function (geocode_response) {
+				if(geocode_response.status === 404){
+					window.alert('That is not a valid ZIP code');
+				}
 				return geocode_response.json();
 			})
 
