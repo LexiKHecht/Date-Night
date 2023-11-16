@@ -14,8 +14,13 @@ let saveBtn = $('#svBtn');
 let zipResult = $('#valid-zip');
 
 
+
 let quickTimerCtr = 15;
 let quickTimer;
+
+// saveBtn.disabled =true;
+// console.log(saveBtn.disabled);	
+
 
 // saveBtn.disabled =true;
 // console.log(saveBtn.disabled);	
@@ -51,7 +56,7 @@ function alertUser() {
 }
 
 function disableSvBtn() {
-	
+
 }
 
 function updatePage() {
@@ -148,7 +153,6 @@ function updatePage() {
 		alertUser();
 	}
 
-<<<<<<< HEAD
 }
 
 function saveToLocal(event) {
@@ -166,11 +170,11 @@ function saveToLocal(event) {
 
 	let searchTerm = ':';
 	dateUrl = dateUrl.toString();
-	dateUrl = dateUrl.slice( dateUrl.indexOf(searchTerm)+3, dateUrl.length);
+	dateUrl = dateUrl.slice(dateUrl.indexOf(searchTerm) + 3, dateUrl.length);
 
 	searchTerm = ')'
 	dateRestaurant = dateRestaurant.toString();
-	dateRestaurant = dateRestaurant.slice( dateRestaurant.indexOf(searchTerm)+2, dateRestaurant.length);
+	dateRestaurant = dateRestaurant.slice(dateRestaurant.indexOf(searchTerm) + 2, dateRestaurant.length);
 
 	console.log(dateUrl);
 	console.log(dateRestaurant);
@@ -178,15 +182,15 @@ function saveToLocal(event) {
 	let newDate = {
 		loadedDateurl: dateUrl,
 		loadDateRestaurant: dateRestaurant
-	  };
+	};
 
-	  saveDateToStorage(newDate);
+	saveDateToStorage(newDate);
 
 }
 
 function saveDateToStorage(date) {
 	localStorage.setItem('newDate', JSON.stringify(date));
-  }
+}
 
 // This click will begin the API call 
 saveBtn.on('click', updatePage)
@@ -203,10 +207,9 @@ saveBtn.on('click', updatePage)
 //   </button>
 
 // </div>
-=======
 //This function takes the ID of a button as a parameter and 
 //disables the button as well as making the cursor "not allowed"
-function disableButton(buttonId){
+function disableButton(buttonId) {
 	var button = document.getElementById(buttonId);
 	button.disabled = "true";
 	button.style.cursor = "not-allowed";
@@ -214,12 +217,10 @@ function disableButton(buttonId){
 
 //This function takes the ID of a button as a parameter and 
 //enables a previous disabled button as well as making the cursor a "pointer" again
-function enableButton(buttonId){
+function enableButton(buttonId) {
 	var button = document.getElementById(buttonId);
 	button.disabled = "false";
 	button.style.cursor = "pointer";
 }
->>>>>>> aa0280225c68f168de8a8aa19bc9e8d484de61af
-
 // Back to top button
-const toTop = () => window.scrollTo({top:0, behavior: 'smooth'})
+const toTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
