@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Metal+Mania&family=Pixelify+Sans&display=swap"
     rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
   <link rel="stylesheet" href="style.css">
 
@@ -361,6 +362,11 @@
   <!-- this is where we are storing our restaurantsForUser api call -->
   <section id="restaurant-results" class="restaurant-container"></section>
 
+<div id="pickDate" class="invisible text-center bg-yellow-100">
+  <p>Please pick a date for your Date: <input  type="text" id="datepicker"></p>
+</div>
+
+
   <!-- cards -->
   <section class="text-center bg-yellow-100 pt-9">
     <h2 class="mb-20 text-4xl text-center text-pink-800 font-bold italic tracking-widest" id="title">
@@ -440,6 +446,7 @@
         </div>
       </div>
     </div>
+        
   </section>
   <!-- display images -->
   <section>
@@ -726,8 +733,8 @@
 </body>
 
 <!-- jQuery script links-->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <script src="script.js"></script>
 
