@@ -210,7 +210,7 @@ saveBtn.on('click', updatePage)
 //   </button>
 
 // </div>
-//This function takes the ID of a button as a parameter and 
+//This function takes the parameter of button ID as a string and 
 //disables the button as well as making the cursor "not allowed"
 function disableButton(buttonId) {
 	var button = document.getElementById(buttonId);
@@ -218,7 +218,7 @@ function disableButton(buttonId) {
 	button.style.cursor = "not-allowed";
 }
 
-//This function takes the ID of a button as a parameter and 
+//This function takes the parameter of button ID as a string and 
 //enables a previous disabled button as well as making the cursor a "pointer" again
 function enableButton(buttonId) {
 	var button = document.getElementById(buttonId);
