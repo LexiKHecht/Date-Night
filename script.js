@@ -2,7 +2,12 @@
 let api_url = 'http://api.openweathermap.org/geo/1.0/zip?zip=22202,US&appid=a8fca69c0decd07fd47a9618050e95c3';
 
 
+// will refrence the index.html element with the id of toggle
+let menuBtn = $('#toggler')
 
+let sideMenu = $('#sidenav')
+
+let xClose = $('#xOut')
 
 // will reference the index.html element with the id of city
 let city = $('#city');
@@ -26,12 +31,23 @@ let quickTimer;
 // console.log(saveBtn.disabled);	
 
 
-
 // A simple function which validates the Zip Code has a correct length of 5
 function isValidZip(currentZip) {
 	if (currentZip.length == 5)
 		return true;
 	return false;
+}
+
+menuBtn.on('click', openMenu)
+xClose.on('click', closeMenu)
+
+function openMenu() {
+
+	sideMenu.removeClass("invisible");
+}
+
+function closeMenu() {
+	sideMenu.addClass('invisible');
 }
 
 function alertUser() {
