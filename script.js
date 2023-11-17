@@ -22,14 +22,13 @@ let zipResult = $('#valid-zip');
 
 let quickTimerCtr = 15;
 let quickTimer;
+let loadedDate;
 
-// saveBtn.disabled =true;
-// console.log(saveBtn.disabled);	
+let dateUrl;
+let dateRestaurant;
 
-
-// saveBtn.disabled =true;
-// console.log(saveBtn.disabled);	
-
+let newDate = {
+};
 
 // A simple function which validates the Zip Code has a correct length of 5
 function isValidZip(currentZip) {
@@ -56,7 +55,6 @@ function alertUser() {
 
 		//  Show element indicating that user's Zip Code is invalid  
 		zipResult.removeClass("invisible");
-		console.log(quickTimerCtr);
 
 		if (quickTimerCtr <= 0) {
 
@@ -71,11 +69,9 @@ function alertUser() {
 	quickTimerCtr = 15;
 }
 
-function disableSvBtn() {
-
-}
-
 function updatePage() {
+
+	disableButton('svBtn');
 	let zipCode = city.val();
 	// if zipCode is truthy then do work 
 
@@ -89,7 +85,7 @@ function updatePage() {
 
 		fetch(api_url)
 			.then(function (geocode_response) {
-				if(geocode_response.status === 404){
+				if (geocode_response.status === 404) {
 					window.alert('That is not a valid ZIP code');
 				}
 				return geocode_response.json();
@@ -105,7 +101,7 @@ function updatePage() {
 				// we are now on the restaurants.html page so therefore we can now display 
 				// more data
 
-				// $('.target').append('<p>This is where the results will be</p>')
+				// $('.target').append('<p>ThirestaurantResultill be</p>')
 
 				// call the Restaurants near me USA API
 				// displays the object returned by the api call 
@@ -130,58 +126,59 @@ function updatePage() {
 				// We now have list of 10 restraunts with their names, address, zip codes, ect 
 				$.ajax(restaurantsForUser).done(function (restaurantsResponse) {
 
-					// Finds the id restaurant-results and appends this new class <h1 class= "mb-4 ...
-					$('#restaurant-results').append('<h1 class= "mb-4 mt-0 text-base font-light leading-relaxed">Restaurants in ' + geocode_data.name + '</h1>')
+					let restaurantResult = $('#restaurant-results');
+
+					// Finds therestaurantResultnd appends this new class <h1 class= "mb-4 ...
+					restaurantResult.append('<h1 class= "mb-4 mt-0 text-base font-light leading-relaxed">Restaurants in ' + geocode_data.name + '</h1>')
 					for (let i = 0; i < 5; i++) {
-						// Finds the id restaurant-results and now appends this new class <p class= "name mb-4 mt-0 ...
-						$('#restaurant-results').append('<p class=  mb-4 mt-0 text-base font-light leading-relaxed"> Restaurant ' +
+						// Finds therestaurantResultnd now appends this new class <p class= "name mb-4 mt-0 ...
+						restaurantResult.append('<p class=  mb-4 mt-0 text-base font-light leading-relaxed"> Restaurant ' +
 							(i + 1) + '.)	' + restaurantsResponse.restaurants[i].restaurantName + '</p>');
 
 						let restaurantUrl = restaurantsResponse.restaurants[i].website;
-						// Finds the id restaurant-results and now appends this new class <p class= "name mb-4 mt-0 ...
+						// Finds therestaurantResultnd now appends this new class <p class= "name mb-4 mt-0 ...
 						// this time we are listing the restaurants websites
-						// $('#restaurant-results').append('<p class= "mb-4 mt-0 text-base font-light leading-relaxed"> Their website '
+						// restaurantResult.append('<p class= "mb-4 mt-0 text-base font-light leading-relaxed"> Their website '
 						// + restaurantsResponse.restaurants[i].website + '</p>');
 
 						// this is very dependent on string concat be careful editing these strings or it will break 
-						$('#restaurant-results').append('<p class= "mb-4 mt-0 text-base font-light leading-relaxed"> Their website: '
+						restaurantResult.append('<p class= "mb-4 mt-0 text-base font-light leading-relaxed"> Their website: '
 							+ ' <a href="' + restaurantUrl + '"' +
 							'class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">' + restaurantUrl + '</a></p>');
 
-						// attaching buttonsing on to the save event
-						$('#restaurant-results').append('<button id="btn' + i + '"class="px-3 py-1.5 text-center text-base font-normal text-pink-700 dark:text-neutral-200">Button</button>');
+						// attaching buttons to these restraunts
+						restaurantResult.append('<button id="btn' + i + '"class="px-3 py-1.5 text-center text-base font-normal text-pink-700 dark:text-neutral-200">Click To save your date location</button>');
 					}
 
-					let restaurantResult = $('#restaurant-results');
+					restaurantResult.append('<button id="resetBtn"class="px-3 py-1.5 text-center text-base font-normal text-pink-700 dark:text-neutral-200">Click here to start a new search</button>');
 
 					// this click event must be within the moment when we create the button
 					// otherwise the button wouldn't be called
 
-					restaurantResult.on('click', '#btn0', saveToLocal);
-					restaurantResult.on('click', '#btn1', saveToLocal);
-					restaurantResult.on('click', '#btn2', saveToLocal);
-					restaurantResult.on('click', '#btn3', saveToLocal);
-					restaurantResult.on('click', '#btn4', saveToLocal);
-					disableSvBtn();
+					restaurantResult.on('click', '#btn0', handleTextSubmit);
+					restaurantResult.on('click', '#btn1', handleTextSubmit);
+					restaurantResult.on('click', '#btn2', handleTextSubmit);
+					restaurantResult.on('click', '#btn3', handleTextSubmit);
+					restaurantResult.on('click', '#btn4', handleTextSubmit);
+					restaurantResult.on('click', '#resetBtn', resetPage);
 				});
 			});
-
 	}
 	// Zip Code is not valid and therefore we must alert the user 
 	else {
 		alertUser();
 	}
-
 }
 
-function saveToLocal(event) {
+function handleTextSubmit(event) {
 	event.preventDefault();
+	let loadedDatesStorage = readDateFromStorage();
 
 	// grabs the website url with some words b4 te actual url, we need to remove them
-	let dateUrl = $(this).prev().text();
+	dateUrl = $(this).prev().text();
 
 	// just like in 157 except we are getting the name
-	let dateRestaurant = $(this).prev().prev().text();
+	dateRestaurant = $(this).prev().prev().text();
 
 	// removing and setting the strings to the desired data
 	// All the data ends with a particular bit which will serve as a indicator 
@@ -191,43 +188,83 @@ function saveToLocal(event) {
 	dateUrl = dateUrl.toString();
 	dateUrl = dateUrl.slice(dateUrl.indexOf(searchTerm) + 3, dateUrl.length);
 
+
 	searchTerm = ')'
 	dateRestaurant = dateRestaurant.toString();
 	dateRestaurant = dateRestaurant.slice(dateRestaurant.indexOf(searchTerm) + 2, dateRestaurant.length);
 
-	console.log(dateUrl);
-	console.log(dateRestaurant);
+	let restaurantResult = $('#restaurant-results');
+	restaurantResult.remove();
 
-	let newDate = {
-		loadedDateurl: dateUrl,
-		loadDateRestaurant: dateRestaurant
-	};
+	// we want to hide the results
+	hide($('#restaurant-results'));
+	show($('#pickDate'));
 
-	saveDateToStorage(newDate);
+	$(function () {
+		$("#datepicker").datepicker({
+			onSelect: function (selectedDate) {
+				// custom callback logic here
+				alert(selectedDate);
+				newDate['thing'] = selectedDate;
+				newDate['loadedDateurl'] = dateUrl;
+				newDate['loadDateRestaurant'] = dateRestaurant;
 
+				// if the first item of local storage has nothing in it overwrite it with the first saved value
+				if (loadedDatesStorage[0] === null) {
+					loadedDatesStorage[0] = newDate;
+					saveDateToStorage(loadedDatesStorage);
+				}
+
+				// otherwise we just want to continue to add dates into storage 
+				else {
+					loadedDatesStorage.push(newDate)
+					saveDateToStorage(loadedDatesStorage);
+				}
+			}
+
+		});
+
+	});
+
+}
+
+function getDate() {
+	let date = $("#datepicker").datepicker("getDate");
+	loadedDate = date.toString();
+
+	let searchTerm = '2023';
+	loadedDate = loadedDate.slice(0, loadedDate.indexOf(searchTerm) + 4);
+	console.log(loadedDate)
+}
+
+function readDateFromStorage() {
+	let loadedDate = localStorage.getItem('newDate');
+
+	// if somebtnNumber was succefully loaded in description then 
+	// JSON.parse(discription) transfroms the strings loaded from
+	//  local storage into objects
+	if (loadedDate) {
+		loadedDate = JSON.parse(loadedDate);
+	}
+
+	// returns an empty array if description = falsey
+	// meaning that there was nobtnNumber in local storage to load 
+	else {
+		loadedDate = [null];
+	}
+
+	return loadedDate;
 }
 
 function saveDateToStorage(date) {
 	localStorage.setItem('newDate', JSON.stringify(date));
 }
 
-// This click will begin the API call 
-saveBtn.on('click', updatePage)
+function resetPage() {
+	location.reload();
+}
 
-// <div class="flex gap-2">
-//   <!-- HTML -->
-//   <button class="bg-gray-300 px-4 py-2 rounded-md cursor-not-allowed opacity-50" disabled>
-//     Disabled Button
-//  </button>
 
-//   <!-- HTML -->
-//   <button class="bg-green-500 hover:bg-green-700 active:bg-green-800 px-4 py-2 rounded-md text-white">
-//     Active Button
-//   </button>
-
-// </div>
-//This function takes the ID of a button as a parameter and 
-//disables the button as well as making the cursor "not allowed"
 function disableButton(buttonId) {
 	var button = document.getElementById(buttonId);
 	button.disabled = "true";
@@ -241,5 +278,21 @@ function enableButton(buttonId) {
 	button.disabled = "false";
 	button.style.cursor = "pointer";
 }
+
+function hide(elementId) {
+	elementId.addClass('invisible');
+}
+
+function show(elementId) {
+	elementId.removeClass('invisible');
+}
+
 // Back to top button
+
 const toTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+
+// This click will begin the API call 
+
+saveBtn.on('click', updatePage)
+
+
