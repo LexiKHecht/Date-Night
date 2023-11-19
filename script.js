@@ -9,6 +9,8 @@ let sideMenu = $('#sidenav')
 
 let xClose = $('#xOut')
 
+let box = $('#calanderBox')
+
 // will reference the index.html element with the id of city
 let city = $('#city');
 
@@ -228,6 +230,7 @@ function handleTextSubmit(event) {
 	show($('#pickDate'));
 
 	$(function () {
+		box.removeClass("invisible");
 		$("#datepicker").datepicker({
 			onSelect: function (selectedDate) {
 
@@ -235,6 +238,7 @@ function handleTextSubmit(event) {
 				newDate['date'] = selectedDate;
 				newDate['loadedDateurl'] = dateUrl;
 				newDate['loadDateRestaurant'] = dateRestaurant;
+				
 
 
 				// if the first item of local storage has nothing in it overwrite it with the first saved value
