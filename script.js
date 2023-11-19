@@ -18,15 +18,24 @@ let saveBtn = $('#svBtn');
 // will reference the index.html element with the id of valid-zip
 let zipResult = $('#valid-zip');
 
+// will reference the index.html element with the id of save-dates
+let saveDates = $('#save-dates');
+
+let saveSucc = $('#save-success')
 
 
+// global variables
 let quickTimerCtr = 15;
+let successTimerCtr = 20;
+
 let quickTimer;
+let successTimer;
 let loadedDate;
 
 let dateUrl;
 let dateRestaurant;
 
+// anempty date object, we will use this to store newDate variables dynamically
 let newDate = {
 };
 
@@ -37,12 +46,9 @@ function isValidZip(currentZip) {
 	return false;
 }
 
-menuBtn.on('click', openMenu)
-xClose.on('click', closeMenu)
-
 function openMenu() {
-
 	sideMenu.removeClass("invisible");
+	printEvent();
 }
 
 function closeMenu() {
@@ -64,14 +70,32 @@ function alertUser() {
 		}
 		// set in Nanoseconds
 	}, 100);
-
 	// Resets timer back to 10 for the next time an invlaid zip code is entered
 	quickTimerCtr = 15;
+}
+function saveSuccess()
+{
+	successTimer = setInterval(function () {
+		successTimerCtr--;
+
+		//  Show element indicating that user's Zip Code is invalid  
+		show($('#save-success'));
+		if (successTimerCtr <= 0) {
+
+			//  if quickTimer is less than or equal to 0 then hide the element 
+			hide($('#save-success'));
+			clearInterval(successTimer);
+			resetPage();
+
+		}
+		// set in Nanoseconds
+	}, 100);
+	// Resets timer back to 10 for the next time an invlaid zip code is entered
+	successTimerCtr = 20;
 }
 
 function updatePage() {
 
-	disableButton('svBtn');
 	let zipCode = city.val();
 	// if zipCode is truthy then do work 
 
@@ -129,10 +153,12 @@ function updatePage() {
 					let restaurantResult = $('#restaurant-results');
 
 					// Finds therestaurantResultnd appends this new class <h1 class= "mb-4 ...
-					restaurantResult.append('<h1 class= "mb-4 mt-0 text-base font-light leading-relaxed">Restaurants in ' + geocode_data.name + '</h1>')
+					restaurantResult.append('<h1 class= "mb-0 mt-0 text-base font-light leading-relaxed">Restaurants in ' + geocode_data.name + '</h1>')
+					restaurantResult.append('<button id="resetBtn" class=" absolute top-0 right-0 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-2 mt-2 border border-gray-400 text-[0.875rem] rounded shadow" >Click here to start a new search</button>');
+
 					for (let i = 0; i < 5; i++) {
 						// Finds therestaurantResultnd now appends this new class <p class= "name mb-4 mt-0 ...
-						restaurantResult.append('<p class=  mb-4 mt-0 text-base font-light leading-relaxed"> Restaurant ' +
+						restaurantResult.append('<p class=  mb-0 mt-0 text-base font-light leading-relaxed"> Restaurant ' +
 							(i + 1) + '.)	' + restaurantsResponse.restaurants[i].restaurantName + '</p>');
 
 						let restaurantUrl = restaurantsResponse.restaurants[i].website;
@@ -142,15 +168,15 @@ function updatePage() {
 						// + restaurantsResponse.restaurants[i].website + '</p>');
 
 						// this is very dependent on string concat be careful editing these strings or it will break 
-						restaurantResult.append('<p class= "mb-4 mt-0 text-base font-light leading-relaxed"> Their website: '
+						restaurantResult.append('<p class= "mb-0 mt-0 text-base font-light leading-relaxed"> Their website: '
 							+ ' <a href="' + restaurantUrl + '"' +
 							'class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">' + restaurantUrl + '</a></p>');
 
 						// attaching buttons to these restraunts
-						restaurantResult.append('<button id="btn' + i + '"class="px-3 py-1.5 text-center text-base font-normal text-pink-700 dark:text-neutral-200">Click To save your date location</button>');
-					}
+						restaurantResult.append('<button id="btn' + i + '"class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-2 mt-1 mb-2 border border-gray-400 text-[0.875rem] rounded shadow">Click To save your date location</button>');
+						restaurantResult.append('<hr class="target h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">');
 
-					restaurantResult.append('<button id="resetBtn"class="px-3 py-1.5 text-center text-base font-normal text-pink-700 dark:text-neutral-200">Click here to start a new search</button>');
+					}
 
 					// this click event must be within the moment when we create the button
 					// otherwise the button wouldn't be called
@@ -161,6 +187,7 @@ function updatePage() {
 					restaurantResult.on('click', '#btn3', handleTextSubmit);
 					restaurantResult.on('click', '#btn4', handleTextSubmit);
 					restaurantResult.on('click', '#resetBtn', resetPage);
+					disableButton('svBtn')
 				});
 			});
 	}
@@ -203,27 +230,86 @@ function handleTextSubmit(event) {
 	$(function () {
 		$("#datepicker").datepicker({
 			onSelect: function (selectedDate) {
+
 				// custom callback logic here
-				alert(selectedDate);
-				newDate['thing'] = selectedDate;
+				newDate['date'] = selectedDate;
 				newDate['loadedDateurl'] = dateUrl;
 				newDate['loadDateRestaurant'] = dateRestaurant;
+
 
 				// if the first item of local storage has nothing in it overwrite it with the first saved value
 				if (loadedDatesStorage[0] === null) {
 					loadedDatesStorage[0] = newDate;
+					loadedDatesStorage.push(newDate);
 					saveDateToStorage(loadedDatesStorage);
 				}
 
 				// otherwise we just want to continue to add dates into storage 
 				else {
-					loadedDatesStorage.push(newDate)
+					loadedDatesStorage.push(newDate);
 					saveDateToStorage(loadedDatesStorage);
+
 				}
+				saveSuccess();
 			}
 
 		});
 
+	});
+
+}
+
+function printEvent() {
+
+	// We use numOfTimeSlots since it value is grabbed on init
+	let dateFromStorage = readDateFromStorage();
+
+	saveDates.append('<button class="delete-Btn bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-2 mt-2 ml-10 border border-gray-400 text-[0.875rem] rounded shadow">Click here clear your dates</button>' +
+		'</div>');
+	// if nothing is within the local storage then dont print any thing
+	if (dateFromStorage[0] === null) {
+		saveDates.append(' <div class="relative"> ' +
+			'<h4 class= " mb-2 mt-5 ml-10" >No Dates Saved</h4>' +
+			'</div>'
+		);
+	}
+	else {
+		// otherwise we print the values stored within the dateFromStorage object
+
+		for (let i = 0; i < dateFromStorage.length; i++) {
+
+			saveDates.append(' <div class=" content-center relative h-fit"> ' +
+				'<a class="group flex flex-wrap h-12 cursor-pointer items-center truncate rounded-[5px] ' +
+				'px-10 py-20 text-[1rem] text-gray-700 outline-none transition duration-300 ease-linear hover:bg-blue-400/10 hover:text-blue-600 hover:outline-none' +
+				'focus:bg-blue-400/10 focus:text-blue-600 focus:outline-none active:bg-blue-400/10 active:text-blue-600 active:outline-none data-[te-sidenav-state-active]:text-blue-600' +
+				'data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10 relative overflow-hidden inline-block align-bottom"' +
+				'href="#!" data-te-sidenav-link-ref="" tabindex="0">' +
+				'<span ' +
+				'class="mr-4 [&amp;>svg]:h-3.5 [&amp;>svg]:w-3.5 [&amp;>svg]:fill-gray-700 [&amp;>svg]:transition [&amp;>svg]:duration-300 [&amp;>svg]:ease-linear group-hover:[&amp;>svg]:fill-blue-600 group-focus:[&amp;>svg]:fill-blue-600' +
+				'group-active:[&amp;>svg]:fill-blue-600 group-[te-sidenav-state-active]:[&amp;>svg]:fill-blue-600 motion-reduce:[&amp;>svg]:transition-none dark:[&amp;>svg]:fill-gray-300 dark:group-hover:[&amp;>svg]:fill-gray-300 ">' +
+				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">' +
+				'<path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"></path>' +
+				'<path ' +
+				'd="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z">' +
+				'</path>' +
+				'</svg>' +
+				'</span>' +
+				'<span>Location:' + ' ' + dateFromStorage[i].loadDateRestaurant +
+				'<br>' +
+				'On' + ' ' + dateFromStorage[i].date +
+				'<br>' +
+				"location's website:" + dateFromStorage[i].loadedDateurl + '</span>' +
+				'</a>'
+			);
+		}
+	}
+
+	// want to be able to delete dates, maybe they were bad...
+	let deleteBtn = $('.delete-Btn');
+	deleteBtn.on('click', function () {
+		$(this).prev().remove();
+		saveDates.remove();
+		localStorage.removeItem("newDate");
 	});
 
 }
@@ -264,7 +350,6 @@ function resetPage() {
 	location.reload();
 }
 
-
 function disableButton(buttonId) {
 	var button = document.getElementById(buttonId);
 	button.disabled = "true";
@@ -293,6 +378,9 @@ const toTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
 // This click will begin the API call 
 
-saveBtn.on('click', updatePage)
+saveBtn.on('click', updatePage);
+menuBtn.on('click', openMenu);
+xClose.on('click', closeMenu);
+
 
 
