@@ -198,10 +198,10 @@
 
 <body class="bg-yellow-100">
   <nav
-    class="relative flex w-full flex-nowrap items-center justify-between bg-[#FEF9C3] bg-contain bg-no-repeat bg-right bg-[url('./assets/images/new-food-nav.png')] shadow-red-200 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 lg:justify-start lg:py-4">
+    class="relative flex w-full flex-nowrap items-center justify-between bg-[#FEF9C3] bg-contain bg-no-repeat bg-right bg-[url('./assets/images/new-food-nav.png')] shadow-red-200 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 lg:justify-start lg:py-4" alt="A pink, maroon, and tan 70's inspred vector. In the middle is pink silverware and heart on a pulse line">
     <div class="flex w-full flex-wrap items-center justify-between px-3">
-      <a class="ml-2" id="title" href="#">
-        <img class="w-40 h-23 rounded-xl ring-8 ring-[#B65663]" src="./assets/images/dine-n-date.gif"></a>
+      <a class="ml-2" id="title">
+        <img class="w-40 h-23 rounded-xl ring-8 ring-[#B65663]" src="./assets/images/dine-n-date.gif" alt="heart logo"></a>
     </div>
   </nav>
 
@@ -363,15 +363,14 @@
   <section id="restaurant-results" class="restaurant-container"></section>
 
 <div id="pickDate" class="invisible text-center bg-yellow-100">
-  <p>Please pick a date for your Date: <input  type="text" id="datepicker"></p>
+  <p>Please pick a date for your Date: <input  type="text" id="datepicker" class="border-2 border-[#FFBFC5] rounded-md" placeholder="Click Here"></p>
 </div>
+<div id="calanderBox" class="invisible absolute left-[695px] bg-white border-2 border-[#FFBFC5] w-48 h-52 rounded-md"></div>
+
 
 
   <!-- cards -->
-  <section class="text-center bg-yellow-100 pt-9">
-    <h2 class="mb-20 text-4xl text-center text-pink-800 font-bold italic tracking-widest" id="title">
-    </h2>
-    <div class="bg-contain bg-no-repeat bg-[url('./assets/images/flower-bg.png')] grid lg:grid-rows-3 lg:gap-y-12">
+    <div class="bg-contain bg-no-repeat bg-[url('./assets/images/flower-bg.png')]  grid lg:grid-rows-3 lg:gap-y-12" alt="An assortment of pink, maroon, and tan flowers in varying sizes">
 
       <!-- first -->
       <div class="mb-16 ml-52">
@@ -462,7 +461,7 @@
             <div class="group relative">
               <div
                 class="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
-                <img src="./assets/images/searching-images1619473572572954.jpg"
+                <img src="./assets/images/searching-images1619473572572954.jpg" alt="Close up of a keyboard with a blue button that says search. There is a magnifying glass laying on the button"
                   alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
                   class="h-full w-full object-cover object-center">
               </div>
@@ -477,7 +476,7 @@
             <div class="group relative">
               <div
                 class="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
-                <img src="./assets/images/DLA-spread-small.jpg"
+                <img src="./assets/images/DLA-spread-small.jpg" alt="Top down veiw of a table with lots of food on it. Food is being passed around"
                   alt="Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant."
                   class="h-full w-full object-cover object-center">
               </div>
@@ -492,7 +491,7 @@
             <div class="group relative">
               <div
                 class="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
-                <img src="./assets/images/dining_hero_19_03.jpg" alt="Collection of four insulated travel bottles on wooden shelf."
+                <img src="./assets/images/dining_hero_19_03.jpg" alt="Three people smiling and enjoying drinks"
                   class="h-full w-full object-cover object-center">
               </div>
               <h3 class="mt-6 text-sm text-pink-800 font-bold italic tracking-widest text-center">
@@ -512,7 +511,7 @@
   <!-- Testimonial Title -->
   <section>
     <div class="mx-auto text-center md:max-w-xl lg:max-w-3xl ">
-      <h3 class="mb-6 text-3xl font-bold text-neutral-800 bg-contain bg-center bg-no-repeat bg-[url('./assets/images/gr.png')]"
+      <h3 class="mb-6 text-3xl font-bold text-neutral-800 bg-contain bg-center bg-no-repeat bg-[url('./assets/images/gr.png')]" alt="A pink, maroon, and tan 70's inspired vector"
         id="title">
         Testimonials
       </h3>
@@ -531,10 +530,10 @@
       <!-- first testimonial -->
       <div class="mb-12 md:mb-0">
         <div class="mb-6 flex justify-center">
-          <img src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).jpg" class="w-32 rounded-full  shadow-lg">
+          <img src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(1).jpg" alt="A portfolio shot of a pretty woman with a short bob hairstyle" class="w-32 rounded-full  shadow-lg">
         </div>
         <h5 class="mb-4 text-xl font-semibold" id="title">Maria Smantha</h5>
-        <h6 class="mb-4 font-thin text-primary">
+        <h6 class="mb-4 font-semibold text-primary">
           Certified Loner
         </h6>
         <p class="mb-4 text-neutral-600">
@@ -598,10 +597,10 @@
       <!-- secound -->
       <div class="mb-12 md:mb-0">
         <div class="mb-6 flex justify-center">
-          <img src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(2).jpg" class="w-32 rounded-full shadow-lg">
+          <img src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(2).jpg" alt="A portfolio shot of a pretty woman with a large tan hat" class="w-32 rounded-full shadow-lg">
         </div>
         <h5 class="mb-4 text-xl font-semibold" id="title">Lisa Cudrow</h5>
-        <h6 class="mb-4 font-thin text-primary">
+        <h6 class="mb-4 font-semibold text-primary">
           Graphic Designer
         </h6>
         <p class="mb-4 text-neutral-600">
@@ -659,7 +658,7 @@
       <!-- third -->
       <div class="mb-0">
         <div class="mb-6 flex justify-center">
-          <img src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(9).jpg" class="w-32 rounded-full shadow-lg">
+          <img src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(9).jpg" alt="A black and white portfolio shot of a pretty man with a big smile" class="w-32 rounded-full shadow-lg">
         </div>
         <h5 class="mb-4 text-xl font-semibold" id="title">John Smith</h5>
         <h6 class="mb-4 font-semibold text-primary">
