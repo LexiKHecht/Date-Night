@@ -1,5 +1,3 @@
-// calls the Openweather's geolocator API 
-let api_url = 'http://api.openweathermap.org/geo/1.0/zip?zip=22202,US&appid=a8fca69c0decd07fd47a9618050e95c3';
 
 
 // will refrence the index.html element with the id of toggle
