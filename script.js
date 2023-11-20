@@ -230,7 +230,6 @@ function handleTextSubmit(event) {
 	show($('#pickDate'));
 
 	$(function () {
-		box.removeClass("invisible");
 		$("#datepicker").datepicker({
 			onSelect: function (selectedDate) {
 
