@@ -241,7 +241,6 @@ function handleTextSubmit(event) {
 				// if the first item of local storage has nothing in it overwrite it with the first saved value
 				if (loadedDatesStorage[0] === null) {
 					loadedDatesStorage[0] = newDate;
-					loadedDatesStorage.push(newDate);
 					saveDateToStorage(loadedDatesStorage);
 				}
 
